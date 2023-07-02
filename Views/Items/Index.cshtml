@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Items>  
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container p-3">
+   
+    <partial name="_Notification" />
+
+    <div class="row pt-4">
+        <div class="col-6"> 
+            <h2 class="text-success"> Items Views</h2>
+        </div>
+        <div class="col-6 text-end" >
+            <a asp-controller="Items" asp-action="New" class="btn btn-outline-success"><i class="bi bi-plus">Add New Item</i></a>
+        </div>
+
+    </div>
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Items Name
+                </th>
+                <th scope="col">
+                    Items Price
+                </th>
+                <th scope="col">
+                    Items Date
+                </th>
+                <th scope="col">
+                    Items Category
+                </th>
+                <th scope="col">
+                    ImageView
+                </th>
+
+                <th scope="col">
+                   Edit & Delete
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Price
+                    </td>
+                    <td>
+                        @item.CreatedDate
+                    </td>
+                    <td>
+                        @item.Category.Name
+                    </td>
+                    <td>
+                        <img src="~/images/@item.ImagesPath" style="width:48px" class="img-thumbnail" />
+                    </td>
+                    <td>
+                        <div class="col-6 text-end">
+                            <a asp-controller="Items" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-sm btn-outline-success">
+                                <i class="bi bi-pencil">
+                                </i>
+                                </a>
+                                &nbsp;
+                            <a asp-controller="Items" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash3">
+                                </i>
+                            </a>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

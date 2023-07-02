@@ -1,0 +1,63 @@
+﻿@model Items
+@{
+    ViewData["Title"] = "New";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="border p-3 mt-4">
+        <div class="row pb-3">
+            <h1 class="text-outline-success">Add New Item</h1>
+            <hr/>
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+          <label asp-for="Name"></label>
+          <input asp-for="Name" class="form-control"/>
+          <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="CreatedDate"></label>
+            <input asp-for="CreatedDate" class="form-control" />
+            <span asp-validation-for="CreatedDate" class="text-danger"></span>
+        </div>
+        <br />
+
+           <div>
+                <label asp-for="CategoryId"></label>
+            <select asp-for="CategoryId" class="form-select" asp-items=@ViewBag.Category>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div>
+                <input class="file" asp-for="ClientFile"  onchange="loadFile(event)" />
+                <img id="MyImge" height="200"/>
+            </div>
+            <br/>
+            <hr/>
+
+        <button type="submit" class="btn btn-outline-success " style="width:150px">Save</button>
+        <a asp-controller="Items" asp-action="Index" class="btn btn-outline-danger">
+            Back To Items
+        </a>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        var loadFile = function(event){
+            var reader = new FileReader();
+            reader.onload = function (){
+                var MyImge = document.getElementById('MyImge');
+                MyImge.src =reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+}
